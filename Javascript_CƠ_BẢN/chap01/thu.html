@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <label for="soluong">Số lượng</label>
+        <input type="number" name="soluong" id="soluong"> <br> <br>
+        <label for="name">Sản phẩm </label>
+        <input type="text" name="name" id="name"> <br> <br>
+        <label for="loai">Loại</label>
+        <select name="" id="chon">
+            <option value="" class=""></option>
+            <option value="Loai1" class="loai">Loại 1</option>
+            <option value="Loai2" class="loai">Loại 2</option>
+            <option value="Loai3" class="loai">Loại 3</option>
+        </select> <br> <br>
+        <label for="dongia">Đơn giá </label>
+        <input type="number" name="dongia" id="dongia"> <br> <br>
+        <label for="place">Nơi nhận hàng </label>
+        <input type="radio" name="place" id="place1" class="place" value="1"> Nội Thành
+        <input type="radio" name="place" id="place2" class="place" value="2"> Ngoại thành <br> <br>
+        <label for="" id="phivc">Phí vận chuyển</label>
+        <input type="text" name="" id="phi" value="100000" readonly> <br>
+        <button id="datmua">Đặt mua</button> <br> <br>
+        <table border="1">
+            <tr>
+                <th>Số lượng</th>
+                <th>Tên sp</th>
+                <th>Loại</th>
+                <th>Đơn giá</th>
+                <th>Nơi nhận hàng</th>
+                <th>Phí vận chuyển</th>
+            </tr>
+<tbody id="push"></tbody>
+        </table>
+    </form>
+    <script>
+        document.getElementById("datmua").onclick=()=>{
+        const soluong = document.getElementById("soluong");
+        const phi = document.getElementById("phi");
+        const name = document.getElementById("name");
+        const dongia = document.getElementById("dongia");
+       const datmua = document.getElementById("datmua");
+           if( soluong.length ==''){
+               alert("Bạn không được để trống số lượng");
+               return false;
+           }
+           if(name.value==""){
+            alert("Bạn không được để trống tên ");
+            return false;
+           }
+           const chon = document.getElementById("chon");
+           if(chon.value ==''){
+               alert("Phải chọn 1 loại");
+            return false;
+           }
+
+         if(dongia.value==""){
+            alert("Bạn không được để trống dơn giá");
+            return false;
+           }
+
+           const places = document.getElementsByClassName("place");
+           let ktra=0;
+           for(let i=0; i< places.length;i++){
+               if(places[i].checked){
+                   ktra++;
+               }
+           }
+           if(ktra ==0){
+               alert("Bạn phải chọn ");
+               return false;
+           }
+
+           alert("Bạn đang kí thành công");
+           
+            let diachi;
+           if(diachi == 1){
+            diachi ="Nội thành";
+            phi.value = 0;
+           }else{
+               diachi = "Ngoại thành";
+           }
+        document.getElementById("push").innerHTML += `<tr>
+                            <td>${soluong.value}</td>
+                            <td>${name.value}</td>
+                            <td>${chon.value}</td>
+                            <td>${dongia.value}</td>
+                            <td>${diachi}</td>
+                            <td >${phi.value}</td>
+                                `;
+                                phi.value = 100000;
+                                return false;
+       }
+
+       const hienthi =()=>{
+           const phivc= document.getElementById("phivc");
+           const phi = document.getElementById("phi");
+           const place1= document.getElementById("place1");
+           phivc.style.display="none";
+          phi.style.display = "none";
+           place1.addEventListener("change",()=>{
+               phivc.style.display="none";
+               phi.style.display = "none";
+           })
+           const place2 = document.getElementById("place2");
+           place2.addEventListener("change",()=>{
+            phivc.style.display="block";
+               phi.style.display = "block";
+           })
+       }
+
+
+hienthi();
+    </script>
+</body>
+</html>
